@@ -10,57 +10,163 @@
 
     <style>
         body {
-            background-image: url('https://via.placeholder.com/1920x1080');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
             font-family: 'Helvetica', sans-serif;
             margin: 0;
+            scroll-behavior: smooth; /* Scrolling fluido */
         }
 
-        /* Modern white navbar */
-        .navbar {
-            background-color: #ffffff;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        /* Initially transparent navbar */
+    .navbar {
+    background-color: transparent;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }     
+
+    .navbar.solid {
+    background-color: #ffffff;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
+
 
         .navbar-brand img {
             height: 50px;
         }
 
-        .navbar-nav .nav-link {
+        .navbar.solid .nav-link {
             color: #000;
             margin-left: 15px;
             font-size: 16px;
         }
-
-        .navbar-nav .nav-link:hover {
+        .navbar .nav-link {
+            color: #ffffff;
+            margin-left: 15px;
+            font-size: 16px;
+        }
+        .navbar .nav-link:hover {
+            color: #000000;
+        }
+        .navbar.solid .nav-link:hover {
             color: #00a339;
         }
-
         .font-family-title {
             font-size: 48px;
             text-align: center;
-            color: #00a339;
+            color: #fff;
+            -webkit-text-stroke-width: 0.5px;
+            -webkit-text-stroke-color: #fff;
             margin: 40px 0 20px 0;
         }
 
         h2 {
             text-align: center;
             font-family: system-ui;
-            color: #444;
+            color: #00a339;
             margin-bottom: 30px;
         }
 
-        .content {
+        /* Hero Section with Parallax Effect */
+        .hero-section {
+            background-image: url('122.jpeg');
+            background-size: cover;
+            background-position: center;
+            padding: 100px 0;
+            color: white;
+            position: relative;
+            border-bottom: #00a339 solid 10px;
+        }
+
+        .hero-section::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: inherit;
+            filter: blur(3px);
+            z-index: 1;
+        }
+
+        .hero-section h1,
+        .hero-section h2 {
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Centra i contenuti dei section */
+        .section {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
             padding: 40px;
             background-color: rgba(255, 255, 255, 0.9);
             margin: 20px auto;
             border-radius: 10px;
             max-width: 1200px;
-            text-align: center;
         }
 
+        .section img {
+            max-width: 100%;
+            margin-top: 0px;
+        }
+
+        /* Slider styling */
+        .slider-wrapper {
+            position: relative;
+            max-width: 48rem;
+            margin: 0 auto;
+        }
+
+        .slider {
+            display: flex;
+            aspect-ratio: 16 / 9;
+            overflow-x: auto;
+            scroll-snap-type: x mandatory;
+            box-shadow: 0 1.5rem 3rem -0.75rem rgba(0, 0, 0, 0.25);
+            border-radius: 0.5rem;
+            scrollbar-width: none;
+        }
+
+        .slider::-webkit-scrollbar {
+            display: none;
+        }
+
+        .slider img {
+            flex: 1 0 100%;
+            scroll-snap-align: start;
+            object-fit: cover;
+        }
+
+        .slider-nav {
+            display: flex;
+            column-gap: 1rem;
+            position: absolute;
+            bottom: 1.25rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1;
+        }
+
+        .slider-nav a {
+            width: 0.5rem;
+            height: 0.5rem;
+            border-radius: 50%;
+            background-color: #fff;
+            opacity: 0.75;
+            transition: opacity 250ms;
+        }
+
+        .slider-nav a:hover {
+            opacity: 1;
+        }
+
+        /* Footer */
         footer {
             background-color: #00a339;
             padding: 20px;
@@ -71,11 +177,24 @@
         footer a {
             color: white;
             text-decoration: none;
+            margin: 0;
         }
 
         footer a:hover {
             font-weight: bold;
             text-decoration: underline;
+        }
+
+        /* Footer mobile optimization */
+        @media (max-width: 768px) {
+            footer p {
+                font-size: 14px;
+            }
+
+            footer a {
+                display: inline-block;
+                margin: 0 5px;
+            }
         }
     </style>
 </head>
@@ -84,7 +203,7 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="https://www.tecnocasa.it/">
                 <img src="logo.svg" alt="Logo Tecnocasa Oggiono">
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -93,53 +212,78 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="https://oggiono1.tecnocasa.it/oggiono/oggiono/chi-siamo">Chi Siamo</a>
+                        <a class="nav-link" href="#home">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="https://oggiono1.tecnocasa.it/immobili-in-vendita">Annunci</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Contatti</a>
+                        <a class="nav-link" href="#bottom">Perché scegliere Tecnocasa</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#approach">Il nostro approccio</a>
                     </li>
                 </ul>
             </div>
         </div>
     </nav>
 
-    <h1 class="font-family-title">Benvenuti a Tecnocasa Oggiono</h1>
-    <h2>Il portale immobiliare che fa la differenza</h2>
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container text-center">
+            <h1 class="font-family-title">Benvenuti a Tecnocasa Oggiono</h1>
+            <h2>Il portale immobiliare che fa la differenza</h2>
+        </div>
+    </section>
 
-    <!-- Placeholder Content -->
-    <div class="content">
-        <h3>Perché scegliere Tecnocasa Oggiono?</h3>
-        <p>
-            Con oltre 30 anni di esperienza nel settore immobiliare, Tecnocasa Oggiono è il tuo punto di riferimento per
-            trovare la casa dei tuoi sogni. Grazie al nostro team di esperti, offriamo consulenza personalizzata, valutazioni precise e una vasta selezione di immobili adatti a ogni esigenza.
-        </p>
-
-        <h3>Il nostro approccio</h3>
-        <p>
-            La nostra missione è aiutarti a trovare il giusto immobile, che si tratti di una prima casa, un investimento o un'attività commerciale. Con la nostra profonda conoscenza del mercato locale, siamo in grado di offrirti soluzioni su misura.
-        </p>
-
-        <h3>Visita il nostro sito principale</h3>
-        <p>
-            Scopri di più su <a href="https://oggiono1.tecnocasa.it" target="_blank">Tecnocasa Oggiono</a> e
-            naviga tra le nostre offerte. Che tu stia cercando una casa in vendita o in affitto, il nostro portale
-            principale ti guiderà passo dopo passo nel tuo percorso immobiliare.
-        </p>
+    <!-- Sections -->
+    <div class="section content">
+        <img src="image2.png" alt="sogni">
+        <p>Siamo il tuo punto di riferimento per il mercato immobiliare di Oggiono.<br> valutazioni gratuite e consulenze mirate per garantire il miglior affare, 
+            grazie alla profonda conoscenza del territorio.</p>
+        <img src="https://placehold.co/600x400" alt="Immagine agenzia immobiliare">
     </div>
 
+    <div class="section content" id="bottom">
+        <h2>Perché scegliere Tecnocasa</h2>
+        <img src="image2.png" alt="Servizi immobiliare">
+        <p>.</p>
+    </div>
+
+    <div class="section content">
+        <h2>Immobili in vendita</h2>
+        <p>Scopri la nostra selezione di immobili in vendita, dalla casa dei tuoi sogni all’investimento perfetto.</p>
+    </div>
+
+    <!-- Slider -->
+    <section class="container">
+        <div class="slider-wrapper">
+            <div class="slider">
+                <img id="slide-1" src="https://images.unsplash.com/photo-1599423300746-b62533397364?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80" alt="Immobili in vendita 1" />
+                <img id="slide-2" src="https://images.unsplash.com/photo-1570129477492-45c003edd2be?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80" alt="Immobili in vendita 2" />
+                <img id="slide-3" src="https://placehold.co/600x400" alt="Immobili in vendita 3" />
+            </div>
+            <div class="slider-nav">
+                <a href="#slide-1"></a>
+                <a href="#slide-2"></a>
+                <a href="#slide-3"></a>
+            </div>
+        </div>
+    </section>
     <footer>
-        <p>&copy; 2024 Tecnocasa Oggiono. Tutti i diritti riservati.</p>
-        <a href="https://oggiono1.tecnocasa.it/privacy/policy/">Privacy Policy</a>
+        <p>Tecnocasa Oggiono © 2024</p>
+        <a href="#">Privacy Policy</a>
     </footer>
-
-    <!-- Bootstrap JS (from CDN) -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // When the user scrolls the page, execute the function
+        window.onscroll = function() {
+            var navbar = document.querySelector('.navbar');
+            if (window.scrollY > 50) { // Adjust the value for when the navbar becomes solid
+                navbar.classList.add('solid');
+            } else {
+                navbar.classList.remove('solid');
+            }
+        };
+    </script>
 </body>
-
 </html>
