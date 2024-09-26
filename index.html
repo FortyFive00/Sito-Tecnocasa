@@ -274,6 +274,7 @@
         <p>Tecnocasa Oggiono © 2024</p>
         <a href="#">Privacy Policy</a>
     </footer>
+
     <script>
         // When the user scrolls the page, execute the function
         window.onscroll = function() {
@@ -284,6 +285,24 @@
                 navbar.classList.remove('solid');
             }
         };
-    </script>
-</body>
-</html>
+
+        const slider = document.querySelector('.slider');
+const sliderNavLinks = document.querySelectorAll('.slider-nav a');
+
+sliderNavLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetId = link.getAttribute('href');
+        const targetSlide = document.querySelector(targetId);
+        const index = Array.from(slider.children).indexOf(targetSlide);
+        
+        slider.scrollTo({
+            left: targetSlide.offsetLeft,
+            behavior: 'smooth'
+        });
+    });
+});
+
+     </script>
+    </body>
+</html>    
