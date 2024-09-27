@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tecnocasa Oggiono - Preview</title>
+    <link rel="icon" type="image/x-icon" href="PIN_TC.ico">
     <!-- Bootstrap CSS (from CDN) -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -12,25 +13,23 @@
         body {
             font-family: 'Helvetica', sans-serif;
             margin: 0;
-            scroll-behavior: smooth; /* Scrolling fluido */
+            scroll-behavior: smooth;
         }
 
-        /* Initially transparent navbar */
-    .navbar {
-    background-color: transparent;
-    position: fixed;
-    width: 100%;
-    top: 0;
-    left: 0;
-    z-index: 1000;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
-    }     
-
-    .navbar.solid {
-    background-color: #ffffff;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        .navbar {
+            background-color: transparent;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
         }
 
+        .navbar.solid {
+            background-color: #ffffff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
 
         .navbar-brand img {
             height: 50px;
@@ -41,17 +40,32 @@
             margin-left: 15px;
             font-size: 16px;
         }
+
         .navbar .nav-link {
             color: #ffffff;
             margin-left: 15px;
+            border-radius: 10px;
             font-size: 16px;
         }
+
+        .nav-link:hover {
+            border-bottom: solid #00a339;
+            transition: 0.4s;
+            border-radius: 10px;
+        }
+
         .navbar .nav-link:hover {
             color: #000000;
+            background: #fff;
+            opacity: 0.8;
+            border-radius: 10px;
+            transition: 0.4s;
         }
+
         .navbar.solid .nav-link:hover {
             color: #00a339;
         }
+
         .font-family-title {
             font-size: 48px;
             text-align: center;
@@ -68,7 +82,6 @@
             margin-bottom: 30px;
         }
 
-        /* Hero Section with Parallax Effect */
         .hero-section {
             background-image: url('122.jpeg');
             background-size: cover;
@@ -97,7 +110,6 @@
             z-index: 2;
         }
 
-        /* Centra i contenuti dei section */
         .section {
             display: flex;
             flex-direction: column;
@@ -105,22 +117,27 @@
             align-items: center;
             text-align: center;
             padding: 40px;
-            background-color: rgba(255, 255, 255, 0.9);
             margin: 20px auto;
             border-radius: 10px;
             max-width: 1200px;
+            width: 100%;
         }
 
-        .section img {
-            max-width: 100%;
-            margin-top: 0px;
+        .separator-section {
+            background-color: rgba(255, 255, 255, 0.9);
         }
 
-        /* Slider styling */
+        .image-section {
+            background-size: cover;
+            background-position: center;
+            color: white;
+        }
+
         .slider-wrapper {
             position: relative;
-            max-width: 48rem;
+            max-width: 100%;
             margin: 0 auto;
+            overflow: hidden;
         }
 
         .slider {
@@ -129,7 +146,6 @@
             overflow-x: auto;
             scroll-snap-type: x mandatory;
             box-shadow: 0 1.5rem 3rem -0.75rem rgba(0, 0, 0, 0.25);
-            border-radius: 0.5rem;
             scrollbar-width: none;
         }
 
@@ -143,30 +159,20 @@
             object-fit: cover;
         }
 
-        .slider-nav {
-            display: flex;
-            column-gap: 1rem;
+        /* Text overlay with opaque background */
+        .slider-overlay {
             position: absolute;
-            bottom: 1.25rem;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 1;
+            bottom: 20px;
+            left: 0;
+            width: 100%;
+            opacity: 90%;
+            background-color: #00a339; /* Semi-transparent background */
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+            font-size: 20px;
         }
 
-        .slider-nav a {
-            width: 0.5rem;
-            height: 0.5rem;
-            border-radius: 50%;
-            background-color: #fff;
-            opacity: 0.75;
-            transition: opacity 250ms;
-        }
-
-        .slider-nav a:hover {
-            opacity: 1;
-        }
-
-        /* Footer */
         footer {
             background-color: #00a339;
             padding: 20px;
@@ -185,22 +191,64 @@
             text-decoration: underline;
         }
 
-        /* Footer mobile optimization */
         @media (max-width: 768px) {
+            .font-family-title {
+                font-size: 32px;
+            }
+
+            h2 {
+                font-size: 24px;
+            }
+
+            .section {
+                padding: 20px;
+            }
+
+            .hero-section {
+                padding: 60px 0;
+            }
+
+            .slider img {
+                flex: 1 0 100%;
+            }
+
             footer p {
                 font-size: 14px;
             }
+        }
 
-            footer a {
-                display: inline-block;
-                margin: 0 5px;
+        @media (max-width: 576px) {
+            .font-family-title {
+                font-size: 24px;
+                margin: 20px 0;
+            }
+
+            h2 {
+                font-size: 20px;
+                margin-bottom: 20px;
+            }
+
+            .section {
+                padding: 15px;
+            }
+
+            .hero-section {
+                padding: 40px 0;
+            }
+
+            .slider img {
+                flex: 1 0 100%;
+                object-fit: contain;
+            }
+
+            footer p {
+                font-size: 12px;
             }
         }
     </style>
 </head>
 
 <body>
-    <!-- Navbar -->
     <nav class="navbar navbar-expand-lg">
         <div class="container-fluid">
             <a class="navbar-brand" href="https://www.tecnocasa.it/">
@@ -228,7 +276,6 @@
         </div>
     </nav>
 
-    <!-- Hero Section -->
     <section class="hero-section">
         <div class="container text-center">
             <h1 class="font-family-title">Benvenuti a Tecnocasa Oggiono</h1>
@@ -236,73 +283,76 @@
         </div>
     </section>
 
-    <!-- Sections -->
-    <div class="section content">
-        <img src="image2.png" alt="sogni">
-        <p>Siamo il tuo punto di riferimento per il mercato immobiliare di Oggiono.<br> valutazioni gratuite e consulenze mirate per garantire il miglior affare, 
-            grazie alla profonda conoscenza del territorio.</p>
-        <img src="https://placehold.co/600x400" alt="Immagine agenzia immobiliare">
-    </div>
-
-    <div class="section content" id="bottom">
-        <h2>Perché scegliere Tecnocasa</h2>
-        <img src="image2.png" alt="Servizi immobiliare">
-        <p>.</p>
-    </div>
-
-    <div class="section content">
+    <!-- Separator Section (White background) -->
+    <div class="section separator-section">
         <h2>Immobili in vendita</h2>
         <p>Scopri la nostra selezione di immobili in vendita, dalla casa dei tuoi sogni all’investimento perfetto.</p>
     </div>
 
-    <!-- Slider -->
-    <section class="container">
+    <!-- Slider Section (Image background) -->
+    <section class="image-section">
         <div class="slider-wrapper">
-            <div class="slider">
-                <img id="slide-1" src="https://images.unsplash.com/photo-1599423300746-b62533397364?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80" alt="Immobili in vendita 1" />
+            <div class="slider" id="slider">
+                <img id="slide-1" src="image4.jpeg" alt="Immobili in vendita 1" />
                 <img id="slide-2" src="https://images.unsplash.com/photo-1570129477492-45c003edd2be?ixlib=rb-1.2.1&auto=format&fit=crop&w=1200&q=80" alt="Immobili in vendita 2" />
-                <img id="slide-3" src="https://placehold.co/600x400" alt="Immobili in vendita 3" />
+                <img id="slide-3" src="image5.jpeg" alt="Immobili in vendita 3" />
             </div>
-            <div class="slider-nav">
-                <a href="#slide-1"></a>
-                <a href="#slide-2"></a>
-                <a href="#slide-3"></a>
+            <!-- Text overlay -->
+            <div class="slider-overlay">
+                <h3>Scopri le nostre migliori offerte immobiliari</h3>
             </div>
         </div>
     </section>
+
     <footer>
-        <p>Tecnocasa Oggiono © 2024</p>
-        <a href="#">Privacy Policy</a>
+        <p>&copy; 2024 Tecnocasa Oggiono | All Rights Reserved</p>
     </footer>
 
+    <!-- Bootstrap JavaScript (from CDN) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // When the user scrolls the page, execute the function
-        window.onscroll = function() {
+        // Navbar background change on scroll
+        window.onscroll = function () {
             var navbar = document.querySelector('.navbar');
-            if (window.scrollY > 50) { // Adjust the value for when the navbar becomes solid
+            if (window.pageYOffset > 0) {
                 navbar.classList.add('solid');
             } else {
                 navbar.classList.remove('solid');
             }
         };
 
-        const slider = document.querySelector('.slider');
-const sliderNavLinks = document.querySelectorAll('.slider-nav a');
-
-sliderNavLinks.forEach(link => {
-    link.addEventListener('click', (e) => {
-        e.preventDefault();
-        const targetId = link.getAttribute('href');
-        const targetSlide = document.querySelector(targetId);
-        const index = Array.from(slider.children).indexOf(targetSlide);
-        
-        slider.scrollTo({
-            left: targetSlide.offsetLeft,
-            behavior: 'smooth'
+        // Smooth scrolling for links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
         });
-    });
-});
+        
+    document.addEventListener("DOMContentLoaded", function () {
+        const slider = document.getElementById('slider');
+        let index = 0;
+        const slides = slider.getElementsByTagName('img');
+        const totalSlides = slides.length;
+        
+        function showNextSlide() {
+            // Move to the next slide, looping back if necessary
+            index = (index + 1) % totalSlides;
+            const offset = index * slides[0].clientWidth;
+            slider.scrollTo({
+                left: offset,
+                behavior: 'smooth'
+            });
+        }
 
-     </script>
-    </body>
-</html>    
+        // Set the automatic slide interval
+        setInterval(showNextSlide, 3000); // 3000ms = 3 seconds
+    });
+
+
+    </script>
+</body>
+
+</html>
